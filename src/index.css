@@ -1,16 +1,25 @@
+/* Quita o comenta lo que ponga Vite por defecto */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* color-scheme: light dark; */  /* <- quítalo */
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Vite también suele poner body { background-color: #242424; }  */
+body {
+  background-color: #fafafa;        /* tema claro */
+  color: #111;                       /* texto oscuro */
+  margin: 3em;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* (Opcional) Quita estilos de #root que centran/tiran layout del demo */
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
 }
 
 a {
@@ -20,14 +29,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {

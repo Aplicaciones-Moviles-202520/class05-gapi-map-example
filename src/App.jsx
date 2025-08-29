@@ -8,13 +8,14 @@ import { useJsApiLoader } from "@react-google-maps/api";
 
 function AppInner() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const mapId = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
   const { state, actions } = useGeo();
   const mapRef = useRef(null);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
-    libraries: ["places"],
+    libraries: ["places", "marker"],
   });
 
   // Boot: geolocalización del navegador. No llamar reverse hasta que isLoaded sea true.

@@ -21,8 +21,10 @@ El código está estructurado con **componentes cohesivos**, un **estado central
    - **Maps JavaScript API**
    - **Geocoding API**
    - **Places API**
+   - **Map Tiles API** (para usar Advanced Markers y Map ID vectorial)
    habilitadas en tu proyecto.
 4. Una **API key de Google Maps** con facturación activada y restringida a tus orígenes.
+5. Un **Map ID** configurado en Google Cloud para habilitar mapas vectoriales.
 
 ---
 
@@ -43,13 +45,24 @@ El código está estructurado con **componentes cohesivos**, un **estado central
    yarn add @react-google-maps/api
    ```
 
-3. Configurar variable de entorno en la raíz del proyecto:
+3. Configurar variables de entorno en la raíz del proyecto:
 
    ```bash
    echo "VITE_GOOGLE_MAPS_API_KEY=TU_API_KEY_AQUI" > .env
+   echo "VITE_GOOGLE_MAPS_MAP_ID=TU_MAP_ID_AQUI" >> .env
    ```
 
-   ⚠️ Reemplaza `TU_API_KEY_AQUI` por tu clave real.
+   ⚠️ Reemplaza `TU_API_KEY_AQUI` por tu clave real y `TU_MAP_ID_AQUI` por el Map ID que generes en Google Cloud.
+
+---
+
+## ▶️ Creación de un Map ID en Google Cloud
+
+1. Abre [Google Cloud Console → Map Management](https://console.cloud.google.com/google/maps-apis/studio/maps).
+2. Haz clic en **Create Map ID** y selecciona estilo **Vector**.
+3. Personaliza el estilo si lo deseas y publícalo.
+4. Copia el **Map ID** (formato `abcd1234efgh5678`) y añádelo a tu archivo `.env` en la variable `VITE_GOOGLE_MAPS_MAP_ID`.
+5. Verifica que la **Map Tiles API** esté habilitada en el mismo proyecto de tu API Key.
 
 ---
 
@@ -73,16 +86,17 @@ http://localhost:5173
 
 ```
 src/
- ├─ App.jsx                # Envoltorio con <GeoProvider>
+ ├─ App.jsx                # Envoltorio con <GeoProvider> y ThemeProvider
  ├─ state/
  │   ├─ geoContext.jsx     # Context + Provider
  │   └─ useGeoReducer.js   # Reducer + acciones
  ├─ components/
  │   ├─ Controls.jsx       # Barra de búsqueda, botones
  │   ├─ PlaceAutocomplete.jsx # Autocomplete de Google Places
- │   └─ MapView.jsx        # Componente del mapa
- └─ services/
-     └─ geocoding.js       # Funciones de geocodificación
+ │   └─ MapView.jsx        # Componente del mapa con AdvancedMarker
+ ├─ services/
+ │   └─ geocoding.js       # Funciones de geocodificación
+ └─ theme.js               # Definición del tema MUI
 ```
 
 ---
@@ -105,7 +119,7 @@ src/
 
 - La **Geolocation API** solo funciona sobre `https://` o `http://localhost`.
 - La **API Key** debe estar restringida por dominios en Google Cloud.
-- Geocoding y Places consumen cuota (ojo con la facturación).
+- Geocoding, Places y Map Tiles consumen cuota (ojo con la facturación).
 - Para producción, considera mover las llamadas de geocodificación al backend para mayor seguridad.
 
 ---
